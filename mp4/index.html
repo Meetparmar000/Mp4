@@ -1,0 +1,117 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charSet="utf-8"/>
+<title>YouTubeMP4: YouTube to MP4 Converter</title>
+<meta name="description" content="YouTubeMP4 is a Free Online Youtube to MP4 Converter and Downloader">
+<script>
+	function get_mp4()
+	{
+		var api_host = 'https://api.fabdl.com';
+		let val = document.getElementById('search-input').value;
+		if (val) {		
+			document.getElementById('search-submit').style.display = 'none';
+			document.getElementById('loader').style.display = 'inline-block';
+			document.getElementById("info").innerHTML = "<img style='height: 300px;' src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' />";
+			axios.get(api_host + '/youtube/get?url=' + encodeURIComponent(val)).then(function (response) {
+				document.getElementById('search-submit').style.display = 'inline-block';
+				document.getElementById('loader').style.display = 'none';
+				if (response.data.result) {
+					let result = response.data.result;
+					let html = "<img style='height: 300px;' src='"+result.image+"' />";
+					html += "<h3>"+result.title+"</h3>";
+					html += "<p>" + result.author +"</p>"
+					html += "<div id='download_mp3'>";
+					for (var i in result.videos) {
+						html += "<p><a class='download-btn' href='" + result.videos[i].url + "'>Download MP4 (" + result.videos[i].quality + ")</a></p>";
+					}
+					html += "</div>";
+					document.getElementById("info").innerHTML = html;
+				} else {
+					document.getElementById("info").innerHTML = '<b style="color:red;">An error has occured while searching. Please try again later.</b>';
+				}
+			}).catch(function (error) {
+				console.log(error);
+			});
+		} else {
+			alert('Paste URL');
+		}
+	}
+</script>
+<link rel="icon" href="/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QG59VPH01Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QG59VPH01Z');
+</script>
+<style>
+	:root {
+	  --main-bt-color: white;	
+	  --main-bg1-color: #ff0068;
+	  --main-bg2-color: #f85b9b;
+	}
+</style>
+<link rel="stylesheet" type="text/css" href="/style/index.css?v=110802"/>
+<style>
+	body {
+		color: black;
+		background-color: #f1f5f7;
+	}
+	.nav h1{
+        font-size: 20px;
+        font-weight: 500;
+		text-decoration: none;
+	}
+	.nav span{
+		color: red;
+		margin: 0 1px 0 1px;
+	}
+</style>	
+</head>
+<body>
+<div class="head">
+	<div class="nav">
+		<div class="logo">
+			<a href="/"><h1>YouTubeMP4.cc</h1></a>
+		</div>
+		<div class="menu">
+			<a href="https://y2mp3.app" target='_blank'>YouTube to MP3</a>
+		</div>
+	</div>
+</div>
+<div id="main">
+	<h2>YouTube to MP4 Converter</h2>
+	<p>Convert and download Youtube video in MP4 for Free</p>
+	<div id="search-box">
+		<input id="search-input" type="text" name="url" placeholder="Paste Youtube video link">
+		<input id="search-submit" type="submit" value="Start" onclick="return get_mp4()"><div id="loader"></div>
+	</div>
+	<div id="info"></div>
+	<div id="help">
+				
+		<h3 class="help-title">How to download YouTube MP4?</h3>
+		<p><b>Step 1:</b> Copy and paste the YouTube video links.</p>
+		<p><b>Step 2:</b> Click "Start" button, then wait for the analyzing finishes.</p>
+		<p><b>Step 3:</b> Download the Youtube MP4.</p>		
+		<h3 class="help-title">About YouTube MP4 Converter</h3>
+		<p>YouTubeMP4.cc is a best, fastest and easiest to use YouTube to MP4 downloader. Our system supports all formats YouTube supports, We also convert YouTube videos into MP4, supports download youtube videos in MP4 360p, 480p, 720p, 1080p HD for free. Try now our fastest Youtube to MP4 Downloader for PC, Mobile, and tablets. There is no registration, signup or contract. The service is completely free to everyone. YouTube MP4 Downloader is now more accessible than ever. This is not all. We also offer video downloads from more than 500 social media networks and websites.</p>	</div>
+</div>
+
+<footer class="copyright">
+	<a href="/terms-of-use" title="Terms of Use">Terms of Use</a>
+	<a href="/dmca" title="DMCA">DMCA</a>
+	<a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a>
+	<a href="/legal-disclaimer" title="Legal Disclaimer">Legal Disclaimer</a>
+	<p>© 2023 youtubemp4.cc All Rights Reserved</p>
+</footer>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/script/index.js"></script>
+<!--<script src="/script/index.umd.js"></script>-->
+<body>
+</html>
